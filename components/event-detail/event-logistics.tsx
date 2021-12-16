@@ -1,13 +1,16 @@
 import AddressIcon from '../icons/address-icon';
 import DateIcon from '../icons/date-icon';
-import classes from './event-logistics.module.css';
+import styles from './event-logistics.module.css';
 import LogisticsItem from './logistics-item';
 
-interface IEventLogicstics {}
+interface IEventLogicstics {
+	date: string;
+	address: string;
+	image: string;
+	imageAlt: string;
+}
 
-const EventLogistics = (props) => {
-	const { date, address, image, imageAlt } = props;
-
+const EventLogistics = ({ date, address, image, imageAlt }: IEventLogicstics) => {
 	const humanReadableDate = new Date(date).toLocaleDateString('en-US', {
 		day: 'numeric',
 		month: 'long',
@@ -17,11 +20,11 @@ const EventLogistics = (props) => {
 	const addressText = address.replace(', ', '\n');
 
 	return (
-		<section className={classes.logistics}>
-			<div className={classes.image}>
-				<img src={`/${image}`} alt={imageAlt} />
+		<section className={styles.logistics}>
+			<div className={styles.image}>
+				<img src={image} alt={imageAlt} />
 			</div>
-			<ul className={classes.list}>
+			<ul className={styles.list}>
 				<LogisticsItem icon={DateIcon}>
 					<time>{humanReadableDate}</time>
 				</LogisticsItem>

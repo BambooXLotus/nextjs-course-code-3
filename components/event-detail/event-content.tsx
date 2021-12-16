@@ -1,11 +1,13 @@
+import { ReactChild } from 'react';
+
 import classes from './event-content.module.css';
 
 interface IEventContent {
-	children: React.ReactChildren;
+	children: ReactChild;
 }
 
-function EventContent({ children }: IEventContent) {
+const EventContent = ({ children }: IEventContent) => {
 	return <section className={classes.content}>{children}</section>;
-}
+};
 
 export default EventContent;
