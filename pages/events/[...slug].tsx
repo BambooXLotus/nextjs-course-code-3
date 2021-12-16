@@ -4,25 +4,34 @@ import { Fragment } from 'react';
 import EventList from '../../components/events/event-list';
 import ResultsTitle from '../../components/events/results-title';
 import Button from '../../components/ui/button';
+import ErrorAlert from '../../components/ui/error-alert';
 import { getFilteredEvents } from '../../dummy-data';
 
 const FilteredEventsPage = () => {
 	const router = useRouter();
 
-	const filterData = router.query.slug;
+	const filterData = router.query.slug as string[];
 
 	if (!filterData) {
-		return <p className='center'>No Filter Data</p>;
+		return <p className='center'>Loading...</p>;
 	}
 
-	const year = filterData[0];
-	const month = filterData[1];
+	const [year, month] = filterData;
 
 	const numYear = +year;
 	const numMonth = +month;
 
 	if (isNaN(numYear) || isNaN(numMonth) || numYear > 2030 || numYear < 2021 || numMonth < 1 || numMonth > 12) {
-		return <p className='center'>Invalid Filter Data</p>;
+		return (
+			<Fragment>
+				<ErrorAlert>
+					<p className='center'>INVALID FILTER DATA!</p>;
+				</ErrorAlert>
+				<div className='center'>
+					<Button link='/events'>Show All Events</Button>
+				</div>
+			</Fragment>
+		);
 	}
 
 	const filterDate = { year: numYear, month: numMonth };
@@ -31,7 +40,9 @@ const FilteredEventsPage = () => {
 	if (!events || events.length === 0) {
 		return (
 			<Fragment>
-				<h1 className='center'>NO EVENT FOUND!</h1>;
+				<ErrorAlert>
+					<p className='center'>NO EVENT FOUND!</p>
+				</ErrorAlert>
 				<div className='center'>
 					<Button link='/events'>Show All Events</Button>
 				</div>

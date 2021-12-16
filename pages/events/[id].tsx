@@ -1,21 +1,28 @@
-import { getEventById } from '../../dummy-data';
-
 import { useRouter } from 'next/router';
 import { Fragment } from 'react';
-import EventSummary from '../../components/event-detail/event-summary';
-import EventLogistics from '../../components/event-detail/event-logistics';
+
 import EventContent from '../../components/event-detail/event-content';
+import EventLogistics from '../../components/event-detail/event-logistics';
+import EventSummary from '../../components/event-detail/event-summary';
+import Button from '../../components/ui/button';
+import ErrorAlert from '../../components/ui/error-alert';
+import { getEventById } from '../../dummy-data';
 
 const EventPage = () => {
 	const router = useRouter();
-	const { id: pid } = router.query;
+	const id = router.query.id as string;
 
-	const event = getEventById(pid);
+	const event = getEventById(id);
 
 	if (!event) {
 		return (
 			<Fragment>
-				<p>NO EVENT FOUND!</p>
+				<ErrorAlert>
+					<p className='center'>NO EVENT FOUND!</p>
+				</ErrorAlert>
+				<div className='center'>
+					<Button link='/events'>Show All Events</Button>
+				</div>
 			</Fragment>
 		);
 	}
