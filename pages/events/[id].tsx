@@ -13,7 +13,11 @@ const EventPage = () => {
 	const event = getEventById(pid);
 
 	if (!event) {
-		return <p>NO EVENT FOUND!</p>;
+		return (
+			<Fragment>
+				<p>NO EVENT FOUND!</p>
+			</Fragment>
+		);
 	}
 
 	return (
