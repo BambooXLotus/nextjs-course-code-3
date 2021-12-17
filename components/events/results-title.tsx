@@ -1,9 +1,10 @@
 import Button from '../ui/button';
 import styles from './results-title.module.css';
 
-const ResultsTitle = (props) => {
-	const { date } = props;
-
+interface IResultsTitle {
+	date: Date;
+}
+const ResultsTitle = ({ date }: IResultsTitle) => {
 	const humanReadableDate = new Date(date).toLocaleDateString('en-US', {
 		month: 'long',
 		year: 'numeric',
