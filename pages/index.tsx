@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 
 import EventList from '../components/events/event-list';
-import { getFeaturedEvents } from '../dummy-data';
+import { getFeaturedEvents } from '../helpers/api-utility';
 import Event from '../types/Event';
 
 const HomePage = ({ events }: { events: Event[] }) => {
@@ -15,8 +15,8 @@ const HomePage = ({ events }: { events: Event[] }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-	console.log('Generating Static Page');
-	var events = getFeaturedEvents();
+	const events = await getFeaturedEvents();
+
 	return {
 		props: {
 			events: events,
