@@ -4,22 +4,15 @@ import { Fragment } from 'react';
 import EventContent from '../../components/event-detail/event-content';
 import EventLogistics from '../../components/event-detail/event-logistics';
 import EventSummary from '../../components/event-detail/event-summary';
-import Button from '../../components/ui/button';
-import ErrorAlert from '../../components/ui/error-alert';
-import { getAllEvents, getEventById } from '../../helpers/api-utility';
+import { getEventById, getFeaturedEvents } from '../../helpers/api-utility';
 import Event from '../../types/Event';
 
 const EventPage = ({ event }: { event: Event }) => {
 	if (!event) {
 		return (
-			<Fragment>
-				<ErrorAlert>
-					<p className='center'>NO EVENT FOUND!</p>
-				</ErrorAlert>
-				<div className='center'>
-					<Button link='/events'>Show All Events</Button>
-				</div>
-			</Fragment>
+			<div className='center'>
+				<p>Loading...</p>
+			</div>
 		);
 	}
 
@@ -40,7 +33,7 @@ const EventPage = ({ event }: { event: Event }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	const events = await getAllEvents();
+	const events = await getFeaturedEvents();
 
 	const paths = events.map((event) => {
 		return {
